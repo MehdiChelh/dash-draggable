@@ -1,0 +1,595 @@
+{
+  "src/lib/components/DashboardItem.react.js": {
+    "description": "DashboardItem is a wrapper that is intended to be used with DraggableDashboard \r\nto specify the position and size of the wrapped components.",
+    "displayName": "DashboardItem",
+    "methods": [],
+    "props": {
+      "i": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "The ID used to identify this component in layout definition."
+      },
+      "children": {
+        "type": {
+          "name": "union",
+          "value": [
+            {
+              "name": "arrayOf",
+              "value": {
+                "name": "node"
+              }
+            },
+            {
+              "name": "node"
+            }
+          ]
+        },
+        "required": false,
+        "description": "The child or list of children wrapped by the component."
+      },
+      "x": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "The position on the x axis in number of columns (by default, the  max is 12).",
+        "defaultValue": {
+          "value": "0",
+          "computed": false
+        }
+      },
+      "y": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "The position on the y axis (the unit is 30px, by default)",
+        "defaultValue": {
+          "value": "0",
+          "computed": false
+        }
+      },
+      "w": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "The width of the x axis (default is 6).",
+        "defaultValue": {
+          "value": "DEFAULT_WIDTH",
+          "computed": true
+        }
+      },
+      "h": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "The height on the of y axis (default is 4)",
+        "defaultValue": {
+          "value": "DEFAULT_HEIGHT",
+          "computed": true
+        }
+      },
+      "static": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "If true, equal to `isDraggable: false, isResizable: false`."
+      },
+      "isDraggable": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "If false, will not be draggable. Overrides `static`."
+      },
+      "isResizable": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "If false, will not be resizable. Overrides `static`."
+      },
+      "isBounded": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "maxH": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": ""
+      },
+      "maxW": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": ""
+      },
+      "minH": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": ""
+      },
+      "minW": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": ""
+      },
+      "moved": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "resizeHandles": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "__isDashboardItem": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "This is an internal prop used to identify the component, this property default value is True. \r\nSetting this value to false is equivalent to not using the DashboardItem wrapper.",
+        "defaultValue": {
+          "value": "true",
+          "computed": false
+        }
+      },
+      "setProps": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": "Dash-assigned callback that should be called to report property changes\r\nto Dash, to make them available for callbacks."
+      }
+    }
+  },
+  "src/lib/components/DashboardItemResponsive.react.js": {
+    "description": "DashboardItemResponsive is a wrapper that is intended to be used with DraggableDashboard.\r\nDashboardItemResponsive specify the position and size of the item on the dashboard.",
+    "displayName": "DashboardItemResponsive",
+    "methods": [],
+    "props": {
+      "id": {
+        "type": {
+          "name": "union",
+          "value": [
+            {
+              "name": "string"
+            },
+            {
+              "name": "object"
+            }
+          ]
+        },
+        "required": false,
+        "description": "The ID used to identify this component in Dash callbacks."
+      },
+      "children": {
+        "type": {
+          "name": "union",
+          "value": [
+            {
+              "name": "arrayOf",
+              "value": {
+                "name": "node"
+              }
+            },
+            {
+              "name": "node"
+            }
+          ]
+        },
+        "required": false,
+        "description": "The child or list of children wrapped by the component."
+      },
+      "x": {
+        "type": {
+          "name": "union",
+          "value": [
+            {
+              "name": "number"
+            },
+            {
+              "name": "object"
+            }
+          ]
+        },
+        "required": false,
+        "description": "The position on the x axis in number of columns (by default, the  max is 12).",
+        "defaultValue": {
+          "value": "0",
+          "computed": false
+        }
+      },
+      "y": {
+        "type": {
+          "name": "union",
+          "value": [
+            {
+              "name": "number"
+            },
+            {
+              "name": "object"
+            }
+          ]
+        },
+        "required": false,
+        "description": "The position on the y axis (the unit is 30px, by default)",
+        "defaultValue": {
+          "value": "0",
+          "computed": false
+        }
+      },
+      "w": {
+        "type": {
+          "name": "union",
+          "value": [
+            {
+              "name": "number"
+            },
+            {
+              "name": "object"
+            }
+          ]
+        },
+        "required": false,
+        "description": "The width of the x axis (default is 6).",
+        "defaultValue": {
+          "value": "DEFAULT_WIDTH",
+          "computed": true
+        }
+      },
+      "h": {
+        "type": {
+          "name": "union",
+          "value": [
+            {
+              "name": "number"
+            },
+            {
+              "name": "object"
+            }
+          ]
+        },
+        "required": false,
+        "description": "The height on the of y axis (default is 4)",
+        "defaultValue": {
+          "value": "DEFAULT_HEIGHT",
+          "computed": true
+        }
+      },
+      "static": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "If true, equal to `isDraggable: false, isResizable: false`."
+      },
+      "isDraggable": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "If false, will not be draggable. Overrides `static`."
+      },
+      "isResizable": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "If false, will not be resizable. Overrides `static`."
+      },
+      "isBounded": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "maxH": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": ""
+      },
+      "maxW": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": ""
+      },
+      "minH": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": ""
+      },
+      "minW": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": ""
+      },
+      "moved": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": ""
+      },
+      "resizeHandles": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": ""
+      },
+      "__isDashboardItem": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "This is an internal prop used to identify the component, this property default value is True. \r\nSetting this value to false is equivalent to not using the DashboardItem wrapper.",
+        "defaultValue": {
+          "value": "true",
+          "computed": false
+        }
+      },
+      "setProps": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": "Dash-assigned callback that should be called to report property changes\r\nto Dash, to make them available for callbacks."
+      }
+    }
+  },
+  "src/lib/components/DraggableDashboard.react.js": {
+    "description": "DraggableDashboard is a component for building \r\ndashboards with draggable and resizable items.\r\nIt takes a list of children and display them in\r\ndiv elements that can be moved around the page.\r\nThe initial size of each element can either be \r\ndefined with the layout argument or by wrapping \r\neach element with the DashboardItem component.\r\nBy default, DraggableDashboard will saved the \r\nposition of the elements on client side, when \r\nmoved on the page. But you can also save it \r\non server side by defining a callback with : \r\n`Input(\"<my-id>\", \"layout\")`.",
+    "displayName": "DraggableDashboard",
+    "methods": [],
+    "props": {
+      "id": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "(string) The ID used to identify this component in Dash callbacks.\r\nThe id is also used to automatically save the layout on client side."
+      },
+      "layout": {
+        "type": {
+          "name": "arrayOf",
+          "value": {
+            "name": "object"
+          }
+        },
+        "required": false,
+        "description": "Layout is a list(python)/vector(R) of dictionnary(Python)/list(R) with the format:\r\n{x: number, y: number, w: number, h: number}\r\nThe index into the layout must match the id used on each item component with DashboardItem.\r\nIf you choose to use custom keys, you can specify that key in the layout\r\narray objects like so:\r\n{i: string, x: number, y: number, w: number, h: number}\r\nThe ID used to identify this component in Dash callbacks.\r\nThe id is also used to automatically save the layout on client side."
+      },
+      "children": {
+        "type": {
+          "name": "union",
+          "value": [
+            {
+              "name": "arrayOf",
+              "value": {
+                "name": "node"
+              }
+            },
+            {
+              "name": "node"
+            }
+          ]
+        },
+        "required": false,
+        "description": "Children is a list of the elements to drag and resize on the dashboard.\r\nIt can be a list(Pytyhon)/vector(R) of dash Components and/or DashboardItem.",
+        "defaultValue": {
+          "value": "[]",
+          "computed": false
+        }
+      },
+      "saveToClient": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "(bool) It specify if the layout should automatically be saved.",
+        "defaultValue": {
+          "value": "true",
+          "computed": false
+        }
+      },
+      "clearLayoutOnClient": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "(bool) If set to true, then the layout saved in the client browser\r\nwill be cleared in the next page load.",
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      },
+      "items_by_row": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "(number) the default number of columns for an item with no predefined size.\r\nThe size of items can either be defined in the layout argument or in DashboardItem."
+      },
+      "nrows": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "(number) the default number of items by row.\r\nDefault is 2."
+      },
+      "setProps": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": "Dash-assigned callback that should be called to report property changes\r\nto Dash, to make them available for callbacks."
+      }
+    }
+  },
+  "src/lib/components/DraggableDashboardResponsive.react.js": {
+    "description": "DraggableDashboard is a component for building\r\ndashboards with draggable and resizable items.\r\nIt takes a list of children and display them in\r\ndiv elements that can be moved around the page.\r\nThe initial size of each element can either be\r\ndefined with the layout argument or by wrapping\r\neach element with the DashboardItem component.\r\nBy default, DraggableDashboard will saved the\r\nposition of the elements on client side, when\r\nmoved on the page. But you can also save it\r\non server side by defining a callback with :\r\n`Input(\"<my-id>\", \"layout\")`.",
+    "displayName": "DraggableDashboardResponsive",
+    "methods": [],
+    "props": {
+      "id": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "(string) The ID used to identify this component in Dash callbacks.\r\nThe id is also used to automatically save the layout on client side."
+      },
+      "layouts": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "Layout is a list(python)/vector(R) of dictionnary(Python)/list(R) with the format:\r\n{x: number, y: number, w: number, h: number}\r\nThe index into the layout must match the id used on each item component with DashboardItem.\r\nIf you choose to use custom keys, you can specify that key in the layout\r\narray objects like so:\r\n{i: string, x: number, y: number, w: number, h: number}\r\nThe ID used to identify this component in Dash callbacks.\r\nThe id is also used to automatically save the layout on client side."
+      },
+      "breakpoints": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": ""
+      },
+      "cols": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": ""
+      },
+      "margin": {
+        "type": {
+          "name": "union",
+          "value": [
+            {
+              "name": "object"
+            },
+            {
+              "name": "arrayOf",
+              "value": {
+                "name": "object"
+              }
+            }
+          ]
+        },
+        "required": false,
+        "description": ""
+      },
+      "containerPadding": {
+        "type": {
+          "name": "union",
+          "value": [
+            {
+              "name": "object"
+            },
+            {
+              "name": "arrayOf",
+              "value": {
+                "name": "object"
+              }
+            }
+          ]
+        },
+        "required": false,
+        "description": ""
+      },
+      "children": {
+        "type": {
+          "name": "union",
+          "value": [
+            {
+              "name": "arrayOf",
+              "value": {
+                "name": "node"
+              }
+            },
+            {
+              "name": "node"
+            }
+          ]
+        },
+        "required": false,
+        "description": "Children is a list of the elements to drag and resize on the dashboard.\r\nIt can be a list(Pytyhon)/vector(R) of dash Components and/or DashboardItem.",
+        "defaultValue": {
+          "value": "[]",
+          "computed": false
+        }
+      },
+      "saveToClient": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "(bool) It specify if the layout should automatically be saved.",
+        "defaultValue": {
+          "value": "true",
+          "computed": false
+        }
+      },
+      "clearLayoutOnClient": {
+        "type": {
+          "name": "bool"
+        },
+        "required": false,
+        "description": "(bool) If set to true, then the layout saved in the client browser\r\nwill be cleared in the next page load.",
+        "defaultValue": {
+          "value": "false",
+          "computed": false
+        }
+      },
+      "items_by_row": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "(number) the default number of item by row.\r\nDefault is {lg: 2, md: 2, sm: 2, xs: 1, xxs: 1}"
+      },
+      "nrows": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "(number) the default number of rows for an item with no predefined size.\r\nThe size of items can either be defined in the layout argument or in DashboardItem."
+      },
+      "setProps": {
+        "type": {
+          "name": "func"
+        },
+        "required": false,
+        "description": "Dash-assigned callback that should be called to report property changes\r\nto Dash, to make them available for callbacks."
+      }
+    }
+  }
+}
