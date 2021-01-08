@@ -2,6 +2,11 @@
 docs/Gemfile*
 docs/_site
 
+# Other
+*.pyc
+.DS_Store
+
+
 # Created by .ignore support plugin (hsz.mobi)
 ### VisualStudioCode template
 .vscode/*
