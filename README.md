@@ -1,16 +1,52 @@
-# dash_draggable
+# &#x1F446; <!-- :point_up_2:  --> dash-draggable
+`dash-draggable` is a Dash component library for building grid layouts in dash with draggable and resizable components.
 
-dash_draggable is a Dash component library.
+**Note:** This project is still at an early stage &#x1F6B6;, don't hesitate to report potential bugs and to suggest features &#x1F60a;.
 
+
+## &#x1F4BB; Installation
+### Pip <!-- / Conda -->
+```
+pip install dash-draggable
+```
+**Note:** This library requires [dash](https://plotly.com/dash/).
+
+## &#x25B6; Demo
+### Live Examples
+- [Simple live example](https://dash-draggable.herokuapp.com/)
+    <!-- - [Fixed width]()
+    - [Responsive]() -->
+
+![Image](./docs/assets/img/draggable_dashboard_sm.gif)
+
+### Run locally
 Get started with:
 1. Install Dash and its dependencies: https://dash.plotly.com/installation
-2. Run `python usage.py`
-3. Visit http://localhost:8050 in your web browser
+2. Run `python usage.py` to experiment with a basic example (Note: you need to be connected to internet to run this example)
+3. Visit http://localhost:5080 in your web browser
+
+
+## &#x1F4DA; Documentation
+The documentation is in progress. 
+
+A first draft of the documentation should be released on the 9th or 10th of january &#x270D;.
+
+##  &#x1F6B6; Upcoming features
+- Design: Add themes
+- Drag freely (without grid)
+- Drag and drop items in list (trello-like)
+
+Don't hesitate to suggest other features &#x1F4AC;
+
 
 ## Contributing
-
 See [CONTRIBUTING.md](./CONTRIBUTING.md)
 
+
+## Credits
+- [STRML/react-grid-layout](https://github.com/STRML/react-grid-layout)
+
+<!-- 
 ### Install dependencies
 
 If you have selected install_dependencies during the prompt, you can skip this part.
@@ -93,4 +129,4 @@ If you have selected install_dependencies during the prompt, you can skip this p
 5. Share your component with the community! https://community.plotly.com/c/dash
     1. Publish this repository to GitHub
     2. Tag your GitHub repository with the plotly-dash tag so that it appears here: https://github.com/topics/plotly-dash
-    3. Create a post in the Dash community forum: https://community.plotly.com/c/dash
+    3. Create a post in the Dash community forum: https://community.plotly.com/c/dash -->
