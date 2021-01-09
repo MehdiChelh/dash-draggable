@@ -13,8 +13,8 @@ Keyword arguments:
 - id (string | dict; optional): The ID used to identify this component in Dash callbacks.
 - x (number | dict; default 0): The position on the x axis in number of columns (by default, the  max is 12).
 - y (number | dict; default 0): The position on the y axis (the unit is 30px, by default)
-- w (number | dict; default DEFAULT_WIDTH): The width of the x axis (default is 6).
-- h (number | dict; default DEFAULT_HEIGHT): The height on the of y axis (default is 4)
+- w (number | dict; default NCOLS): The width of the x axis (default is 6).
+- h (number | dict; default NROWS): The height on the of y axis (default is 4)
 - static (boolean; optional): If true, equal to `isDraggable: false, isResizable: false`.
 - isDraggable (boolean; optional): If false, will not be draggable. Overrides `static`.
 - isResizable (boolean; optional): If false, will not be resizable. Overrides `static`.

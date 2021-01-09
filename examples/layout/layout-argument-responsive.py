@@ -19,7 +19,7 @@ app.layout = html.Div([
     html.H1("Dash Draggable"),
     dash_draggable.DraggableDashboardResponsive(
         id='draggable',
-        clearLayoutOnClient=True,
+        clearSavedLayout=True,
         layouts={
             "lg": [{
                 "i": "graph-with-slider",

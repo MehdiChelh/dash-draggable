@@ -26,8 +26,10 @@ class App extends Component {
             <div>
                 <h1>Not Responsive</h1>
                 <DraggableDashboard
+                    id="test"
                     setProps={this.setProps}
-                    clearLayoutOnClient={true}
+                    clearSavedLayout={false}
+                    className="okok"
                     layout={[
                         {i: 'first-item', w: 5, h: 9, x: 1, y: 1},
                         // {i: 'second-item', w: 4, h: 7, x: 1, y: 1},
@@ -36,7 +38,7 @@ class App extends Component {
                 >
                     <DashboardItem
                         setProps={this.setProps}
-                        id="second-item"
+                        i="second-item"
                         w={4}
                         h={3}
                     >
@@ -76,7 +78,7 @@ class App extends Component {
                 <h1>Responsive</h1>
                 <DraggableDashboardResponsive
                     setProps={this.setProps}
-                    clearLayoutOnClient={true}
+                    clearSavedLayout={false}
                     layouts={{
                         lg: [
                             {i: 'first-item', w: 5, h: 9, x: 1, y: 1},

@@ -13,7 +13,7 @@ DashboardItem is a wrapper that is intended to be used with DraggableDashboard 
 ''DashboardItem(children=NULL, i=NULL, x=NULL, y=NULL, w=NULL, h=NULL,
 static=NULL, isDraggable=NULL, isResizable=NULL,
 isBounded=NULL, maxH=NULL, maxW=NULL, minH=NULL, minW=NULL,
-moved=NULL, resizeHandles=NULL, __isDashboardItem=NULL)
+moved=NULL, resizeHandles=NULL)
 }
 
 \arguments{
@@ -48,9 +48,6 @@ moved=NULL, resizeHandles=NULL, __isDashboardItem=NULL)
 \item{moved}{Logical. }
 
 \item{resizeHandles}{Character. }
-
-\item{__isDashboardItem}{Logical. This is an internal prop used to identify the component, this property default value is True. 
-Setting this value to false is equivalent to not using the DashboardItem wrapper.}
 }
 
 \value{named list of JSON elements corresponding to React.js properties and their values}

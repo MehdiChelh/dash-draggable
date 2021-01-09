@@ -19,8 +19,9 @@ on server side by defining a callback with :
 `Input("<my-id>", "layout")`.
 
 Keyword arguments:
-- children (list of a list of or a singular dash component, string or numbers | a list of or a singular dash component, string or number; optional): Children is a list of the elements to drag and resize on the dashboard.
-It can be a list(Pytyhon)/vector(R) of dash Components and/or DashboardItem.
+- children (list of a list of or a singular dash component, string or numbers | a list of or a singular dash component, string or number; optional): Children is a list of the items (dash Components and/or 
+DashboardItem) to diplay on the layout.
+By default all the items can be dragged and resized.
 - id (string; optional): (string) The ID used to identify this component in Dash callbacks.
 The id is also used to automatically save the layout on client side.
 - layouts (dict; optional): Layout is a list(python)/vector(R) of dictionnary(Python)/list(R) with the format:
@@ -31,24 +32,31 @@ array objects like so:
 {i: string, x: number, y: number, w: number, h: number}
 The ID used to identify this component in Dash callbacks.
 The id is also used to automatically save the layout on client side.
-- breakpoints (dict; optional)
-- cols (dict; optional)
-- margin (dict | list of dicts; optional)
-- containerPadding (dict | list of dicts; optional)
-- saveToClient (boolean; default True): (bool) It specify if the layout should automatically be saved.
-- clearLayoutOnClient (boolean; default False): (bool) If set to true, then the layout saved in the client browser
+- breakpoints (dict; optional): ({breakpoint: number}) The breakpoints for the responsive layout.
+For each screen size (breakpoint) we can define a different layout.
+(see also 'layouts' and 'gridCols' arguments)
+Default value is {lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0}
+- gridCols (dict; optional): ({breakpoint: number}) the number of columns in the grid layout.
+Default value is {lg: 12, md: 10, sm: 6, xs: 4, xxs: 2}.
+- save (boolean; default True): (bool) If True, then the layout is automatically saved on client browser.
+Default value is True
+- clearSavedLayout (boolean; default False): (bool) If set to true, then the layout saved in the client browser
 will be cleared in the next page load.
-- items_by_row (dict; optional): (number) the default number of item by row.
-Default is {lg: 2, md: 2, sm: 2, xs: 1, xxs: 1}
-- nrows (number; optional): (number) the default number of rows for an item with no predefined size.
-The size of items can either be defined in the layout argument or in DashboardItem."""
+- ncols (number; optional): ({breakpoint: number}) the default number of columns by item.
+Default value is {lg: 6, md: 5, sm: 3, xs: 4, xxs: 2}.
+- nrows (number; optional): (number) the default number of row by item.
+Default value is 8.
+- height (number; optional): (number) height of a row (in px).
+Default value is 30.
+- className (string; default ""): (string) class passed to the react-grid-layout component
+- style (dict; optional): (dict) css style passed to the react-grid-layout component"""
     @_explicitize_args
-    def __init__(self, children=None, id=Component.UNDEFINED, layouts=Component.UNDEFINED, breakpoints=Component.UNDEFINED, cols=Component.UNDEFINED, margin=Component.UNDEFINED, containerPadding=Component.UNDEFINED, saveToClient=Component.UNDEFINED, clearLayoutOnClient=Component.UNDEFINED, items_by_row=Component.UNDEFINED, nrows=Component.UNDEFINED, **kwargs):
-        self._prop_names = ['children', 'id', 'layouts', 'breakpoints', 'cols', 'margin', 'containerPadding', 'saveToClient', 'clearLayoutOnClient', 'items_by_row', 'nrows']
+    def __init__(self, children=None, id=Component.UNDEFINED, layouts=Component.UNDEFINED, breakpoints=Component.UNDEFINED, gridCols=Component.UNDEFINED, save=Component.UNDEFINED, clearSavedLayout=Component.UNDEFINED, ncols=Component.UNDEFINED, nrows=Component.UNDEFINED, height=Component.UNDEFINED, className=Component.UNDEFINED, style=Component.UNDEFINED, **kwargs):
+        self._prop_names = ['children', 'id', 'layouts', 'breakpoints', 'gridCols', 'save', 'clearSavedLayout', 'ncols', 'nrows', 'height', 'className', 'style']
         self._type = 'DraggableDashboardResponsive'
         self._namespace = 'dash_draggable'
         self._valid_wildcard_attributes =            []
-        self.available_properties = ['children', 'id', 'layouts', 'breakpoints', 'cols', 'margin', 'containerPadding', 'saveToClient', 'clearLayoutOnClient', 'items_by_row', 'nrows']
+        self.available_properties = ['children', 'id', 'layouts', 'breakpoints', 'gridCols', 'save', 'clearSavedLayout', 'ncols', 'nrows', 'height', 'className', 'style']
         self.available_wildcard_properties =            []
 
         _explicit_args = kwargs.pop('_explicit_args')

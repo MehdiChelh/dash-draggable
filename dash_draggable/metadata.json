@@ -58,7 +58,7 @@
         "required": false,
         "description": "The width of the x axis (default is 6).",
         "defaultValue": {
-          "value": "DEFAULT_WIDTH",
+          "value": "NCOLS",
           "computed": true
         }
       },
@@ -69,7 +69,7 @@
         "required": false,
         "description": "The height on the of y axis (default is 4)",
         "defaultValue": {
-          "value": "DEFAULT_HEIGHT",
+          "value": "NROWS",
           "computed": true
         }
       },
@@ -142,17 +142,6 @@
         },
         "required": false,
         "description": ""
-      },
-      "__isDashboardItem": {
-        "type": {
-          "name": "bool"
-        },
-        "required": false,
-        "description": "This is an internal prop used to identify the component, this property default value is True. \r\nSetting this value to false is equivalent to not using the DashboardItem wrapper.",
-        "defaultValue": {
-          "value": "true",
-          "computed": false
-        }
       },
       "setProps": {
         "type": {
@@ -254,7 +243,7 @@
         "required": false,
         "description": "The width of the x axis (default is 6).",
         "defaultValue": {
-          "value": "DEFAULT_WIDTH",
+          "value": "NCOLS",
           "computed": true
         }
       },
@@ -273,7 +262,7 @@
         "required": false,
         "description": "The height on the of y axis (default is 4)",
         "defaultValue": {
-          "value": "DEFAULT_HEIGHT",
+          "value": "NROWS",
           "computed": true
         }
       },
@@ -387,7 +376,7 @@
           }
         },
         "required": false,
-        "description": "Layout is a list(python)/vector(R) of dictionnary(Python)/list(R) with the format:\r\n{x: number, y: number, w: number, h: number}\r\nThe index into the layout must match the id used on each item component with DashboardItem.\r\nIf you choose to use custom keys, you can specify that key in the layout\r\narray objects like so:\r\n{i: string, x: number, y: number, w: number, h: number}\r\nThe ID used to identify this component in Dash callbacks.\r\nThe id is also used to automatically save the layout on client side."
+        "description": "Layout is a list of dictionnary with the format:\r\n{x: number, y: number, w: number, h: number}\r\nThe index into the layout must match the id used on each item component with DashboardItem.\r\nIf you choose to use custom keys, you can specify that key in the layout\r\narray objects like so:\r\n{i: string, x: number, y: number, w: number, h: number}\r\nThe ID used to identify this component in Dash callbacks.\r\nThe id is also used to automatically save the layout on client side."
       },
       "children": {
         "type": {
@@ -405,47 +394,83 @@
           ]
         },
         "required": false,
-        "description": "Children is a list of the elements to drag and resize on the dashboard.\r\nIt can be a list(Pytyhon)/vector(R) of dash Components and/or DashboardItem.",
+        "description": "Children is a list of the elements to drag and resize on the dashboard.\r\nIt can be a list of dash Components and/or DashboardItem.",
         "defaultValue": {
           "value": "[]",
           "computed": false
         }
       },
-      "saveToClient": {
+      "save": {
         "type": {
           "name": "bool"
         },
         "required": false,
-        "description": "(bool) It specify if the layout should automatically be saved.",
+        "description": "(bool) If False, then the layout is not saved in the browser.\r\nDefault value is True.",
         "defaultValue": {
           "value": "true",
           "computed": false
         }
       },
-      "clearLayoutOnClient": {
+      "clearSavedLayout": {
         "type": {
           "name": "bool"
         },
         "required": false,
-        "description": "(bool) If set to true, then the layout saved in the client browser\r\nwill be cleared in the next page load.",
+        "description": "(bool) If set to true, then the layout saved in the client browser\r\nwill be cleared on page load.",
         "defaultValue": {
           "value": "false",
           "computed": false
         }
       },
-      "items_by_row": {
+      "ncols": {
         "type": {
           "name": "number"
         },
         "required": false,
-        "description": "(number) the default number of columns for an item with no predefined size.\r\nThe size of items can either be defined in the layout argument or in DashboardItem."
+        "description": "(number) the default number of columns by item.\r\nDefault value is 6."
       },
       "nrows": {
         "type": {
           "name": "number"
         },
         "required": false,
-        "description": "(number) the default number of items by row.\r\nDefault is 2."
+        "description": "(number) the default number of row by item.\r\nDefault value is 8."
+      },
+      "width": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "(number) width (in px).\r\nDefault value is 1200."
+      },
+      "height": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "(number) height of a row (in px).\r\nDefault value is 30."
+      },
+      "className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "(string) class passed to the react-grid-layout component",
+        "defaultValue": {
+          "value": "\"\"",
+          "computed": false
+        }
+      },
+      "style": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "(dict) css style passed to the react-grid-layout component",
+        "defaultValue": {
+          "value": "{}",
+          "computed": false
+        }
       },
       "setProps": {
         "type": {
@@ -480,50 +505,14 @@
           "name": "object"
         },
         "required": false,
-        "description": ""
+        "description": "({breakpoint: number}) The breakpoints for the responsive layout.\r\nFor each screen size (breakpoint) we can define a different layout.\r\n(see also 'layouts' and 'gridCols' arguments)\r\nDefault value is {lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0}"
       },
-      "cols": {
+      "gridCols": {
         "type": {
           "name": "object"
         },
         "required": false,
-        "description": ""
-      },
-      "margin": {
-        "type": {
-          "name": "union",
-          "value": [
-            {
-              "name": "object"
-            },
-            {
-              "name": "arrayOf",
-              "value": {
-                "name": "object"
-              }
-            }
-          ]
-        },
-        "required": false,
-        "description": ""
-      },
-      "containerPadding": {
-        "type": {
-          "name": "union",
-          "value": [
-            {
-              "name": "object"
-            },
-            {
-              "name": "arrayOf",
-              "value": {
-                "name": "object"
-              }
-            }
-          ]
-        },
-        "required": false,
-        "description": ""
+        "description": "({breakpoint: number}) the number of columns in the grid layout.\r\nDefault value is {lg: 12, md: 10, sm: 6, xs: 4, xxs: 2}."
       },
       "children": {
         "type": {
@@ -541,24 +530,24 @@
           ]
         },
         "required": false,
-        "description": "Children is a list of the elements to drag and resize on the dashboard.\r\nIt can be a list(Pytyhon)/vector(R) of dash Components and/or DashboardItem.",
+        "description": "Children is a list of the items (dash Components and/or \r\nDashboardItem) to diplay on the layout.\r\nBy default all the items can be dragged and resized.",
         "defaultValue": {
           "value": "[]",
           "computed": false
         }
       },
-      "saveToClient": {
+      "save": {
         "type": {
           "name": "bool"
         },
         "required": false,
-        "description": "(bool) It specify if the layout should automatically be saved.",
+        "description": "(bool) If True, then the layout is automatically saved on client browser.\r\nDefault value is True",
         "defaultValue": {
           "value": "true",
           "computed": false
         }
       },
-      "clearLayoutOnClient": {
+      "clearSavedLayout": {
         "type": {
           "name": "bool"
         },
@@ -569,19 +558,48 @@
           "computed": false
         }
       },
-      "items_by_row": {
+      "ncols": {
         "type": {
-          "name": "object"
+          "name": "number"
         },
         "required": false,
-        "description": "(number) the default number of item by row.\r\nDefault is {lg: 2, md: 2, sm: 2, xs: 1, xxs: 1}"
+        "description": "({breakpoint: number}) the default number of columns by item.\r\nDefault value is {lg: 6, md: 5, sm: 3, xs: 4, xxs: 2}."
       },
       "nrows": {
         "type": {
           "name": "number"
         },
         "required": false,
-        "description": "(number) the default number of rows for an item with no predefined size.\r\nThe size of items can either be defined in the layout argument or in DashboardItem."
+        "description": "(number) the default number of row by item.\r\nDefault value is 8."
+      },
+      "height": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "(number) height of a row (in px).\r\nDefault value is 30."
+      },
+      "className": {
+        "type": {
+          "name": "string"
+        },
+        "required": false,
+        "description": "(string) class passed to the react-grid-layout component",
+        "defaultValue": {
+          "value": "\"\"",
+          "computed": false
+        }
+      },
+      "style": {
+        "type": {
+          "name": "object"
+        },
+        "required": false,
+        "description": "(dict) css style passed to the react-grid-layout component",
+        "defaultValue": {
+          "value": "{}",
+          "computed": false
+        }
       },
       "setProps": {
         "type": {

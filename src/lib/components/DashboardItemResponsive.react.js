@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import {
-    DEFAULT_HEIGHT,
-    DEFAULT_WIDTH,
+    NROWS,
+    NCOLS,
 } from "../constants"
 
 import "../../../node_modules/react-grid-layout/css/styles.css"
@@ -24,8 +24,8 @@ export default class DashboardItemResponsive extends React.Component {
 DashboardItemResponsive.defaultProps = {
     x: 0,
     y: 0,
-    w: DEFAULT_WIDTH,
-    h: DEFAULT_HEIGHT,
+    w: NCOLS,
+    h: NROWS,
     __isDashboardItem: true
 };
 

@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import GridLayout from 'react-grid-layout';
 
 import {
-    ITEMS_BY_ROW,
-    MAX_COLS,
-    DEFAULT_HEIGHT,
-    DEFAULT_ROW_HEIGHT
+    GRID_COLS,
+    NCOLS,
+    NROWS,
+    ROW_HEIGHT,
+    WIDTH,
 } from "../constants"
 
 import {saveToLs, getFromLs} from "../localStorage";
@@ -14,23 +15,23 @@ import "../../../node_modules/react-grid-layout/css/styles.css"
 import "../../../node_modules/react-resizable/css/styles.css"
 import "./style.css"
 
-const defaultItemLayout = (item_layout, id, key, items_by_row) => {
+const defaultItemLayout = (item_layout, id, key, ncols) => {
     
-    const col_width = Math.floor(MAX_COLS / items_by_row)
-    const col = (key % items_by_row)
-    const row = Math.floor(key / items_by_row)
+    const nb_child_x = Math.floor(GRID_COLS / ncols)
+    const col = (key % nb_child_x)
+    const row = Math.floor(key / nb_child_x)
     const defaultChildLayout = {
         i: id || key.toString(),
-        x: col * col_width,
+        x: col * ncols,
         y: row,
-        w: col_width,
-        h: DEFAULT_HEIGHT
+        w: ncols,
+        h: NROWS
     }
     return {
         ...defaultChildLayout,
         ...item_layout,
         i: id || key.toString(),
-        x: item_layout.x ? item_layout.x : defaultChildLayout.x,
+        x: item_layout.x ? item_layout.x : defaultChildLayout.x,  // to refactor
         y: item_layout.y ? item_layout.y : defaultChildLayout.y,
         w: item_layout.w ? item_layout.w : defaultChildLayout.w,
         h: item_layout.h ? item_layout.h : defaultChildLayout.h,
@@ -57,17 +58,16 @@ export default class DraggableDashboard extends Component {
         const {
             id,
             layout: providedLayout,
-            clearLayoutOnClient,
-            items_by_row = ITEMS_BY_ROW,
+            clearSavedLayout,
+            ncols = NCOLS,
         } = this.props;
         let child_props, child_id, isDashboardItem;
-        console.log({layout: providedLayout})
         children = Array.isArray(children) ? children : [children]
         // Build layout
         //   client local store [except if specified]
         //   > layout
         //   > element [except if sepcified])
-        if (clearLayoutOnClient) {
+        if (clearSavedLayout) {
             saveToLs(`${id}-layout`, null)
         }
         const savedLayout = getFromLs(`${id}-layout`)
@@ -88,7 +88,6 @@ export default class DraggableDashboard extends Component {
                     ? child.props._dashprivate_layout.type
                     : child.type.name) === 'DashboardItem';
 
-                console.log({isDashboardItem})
                 child_id =
                     isDashboardItem
                         ? child_props.i
@@ -104,14 +103,13 @@ export default class DraggableDashboard extends Component {
             if (!item_layout && providedLayout){
                 
                 item_layout = providedLayout.find(el => el.i === child_id)
-                console.log({item_layout})
             }
             if (!item_layout && isDashboardItem){
                 const {id, x, y, w, h} = child_props
-                item_layout = defaultItemLayout({i:id, x, y, w, h}, child_id, key, items_by_row)
+                item_layout = defaultItemLayout({i:id, x, y, w, h}, child_id, key, ncols)
             }
             if (!item_layout){
-                item_layout = defaultItemLayout({}, child_id, key, items_by_row)
+                item_layout = defaultItemLayout({}, child_id, key, ncols)
             }
             // }
             // else {
@@ -119,82 +117,91 @@ export default class DraggableDashboard extends Component {
             // }
             return item_layout
         })
-        console.log({initialLayout: layout})
+        
         this.initialLayout = layout
     }
     render() {
         let {children=[]} = this.props
-        const {id, saveToClient, setProps} = this.props
+        const {
+            id,
+            save,
+            setProps,
+            width = WIDTH,
+            height = ROW_HEIGHT,
+            className,
+            style,
+        } = this.props;
 
         children = Array.isArray(children) ? children : [children];
         
-        // children = children.map((child) => {
-        //     if (
-        //         React.isValidElement(child) &&
-        //         child.props._dashprivate_layout
-        //     ) {
-        //         return React.cloneElement(
-        //             child,
-        //             child.props._dashprivate_layout.props
-        //         );
-        //     }
-        //     return child;
-        // });
-        
-        
         return (
             <GridLayout
-            className="layout"
-            layout={this.initialLayout}
-            cols={MAX_COLS}
-            rowHeight={DEFAULT_ROW_HEIGHT}
-            width={1200}
-            onLayoutChange={(layout) => {
-                console.log({layoutChange:layout})
-                setProps({layout})
-                if(saveToClient){
-                    saveToLs(`${id}-layout`, layout)
-                }
-            }}
+                className={className}
+                layout={this.initialLayout}
+                cols={GRID_COLS}
+                rowHeight={height}
+                width={width}
+                style={style}
+                onLayoutChange={(layout) => {
+                    setProps({layout});
+                    if (save) {
+                        saveToLs(`${id}-layout`, layout);
+                    }
+                }}
             >
-            {children.map((child, key) => {
-                // Get the id / key of each child
-                let _key;
-                if (child.props){
-                    const child_props = child.props._dashprivate_layout ? child.props._dashprivate_layout.props : child.props
-                    const isDashboardItem = (child.props._dashprivate_layout
-                        ? child.props._dashprivate_layout.type
-                        : child.type.name) === 'DashboardItem';
-                    _key = isDashboardItem ? child_props.i : child_props.id || key.toString()
-                } else {
-                    _key = key.toString()
-                }
-                console.log({_key})
-                
-                return(
-                    <div key={_key}
-                        className="item">
-                        {
-                        <div className="item-top">
-                            <span className="item-top-content">...</span>
-                            {/* <div className="item-top-right">...</div> */}
-                        </div>}
-                        <div className="item-content" onMouseDown={ e => e.stopPropagation() }>
-                            {child}
+                {children.map((child, key) => {
+                    // Get the id / key of each child
+                    let _key;
+                    if (child.props) {
+                        const child_props = child.props._dashprivate_layout
+                            ? child.props._dashprivate_layout.props
+                            : child.props;
+                        const isDashboardItem =
+                            (child.props._dashprivate_layout
+                                ? child.props._dashprivate_layout.type
+                                : child.type.name) === 'DashboardItem';
+                        _key = isDashboardItem
+                            ? child_props.i
+                            : child_props.id || key.toString();
+                    } else {
+                        _key = key.toString();
+                    }
+
+                    return (
+                        <div key={_key} className="item">
+                            {
+                                <div className="item-top">
+                                    <span className="item-top-content">
+                                        ...
+                                    </span>
+                                    {/* 
+                                        <div className="item-top-right">...</div> 
+                                        Maybe we could add a menu to change the 
+                                        properties of the item.
+                                        (static, draggable, resizeable, ...)
+                                    */}
+                                </div>
+                            }
+                            <div
+                                className="item-content"
+                                onMouseDown={(e) => e.stopPropagation()}
+                            >
+                                {child}
+                            </div>
                         </div>
-                    </div>
-                )
-            }
-            )}
+                    );
+                })}
             </GridLayout>
-        )
+        );
     }
 }
 
 DraggableDashboard.defaultProps = {
-    saveToClient: true,
-    clearLayoutOnClient: false,
-    children: []
+    save: true,
+    clearSavedLayout: false,
+    children: [],
+    className: "",
+    style: {},
 };
 
 DraggableDashboard.propTypes = {
@@ -205,7 +212,7 @@ DraggableDashboard.propTypes = {
     id: PropTypes.string,
 
     /**
-     * Layout is a list(python)/vector(R) of dictionnary(Python)/list(R) with the format:
+     * Layout is a list of dictionnary with the format:
      * {x: number, y: number, w: number, h: number}
      * The index into the layout must match the id used on each item component with DashboardItem.
      * If you choose to use custom keys, you can specify that key in the layout
@@ -218,7 +225,7 @@ DraggableDashboard.propTypes = {
 
     /**
      * Children is a list of the elements to drag and resize on the dashboard.
-     * It can be a list(Pytyhon)/vector(R) of dash Components and/or DashboardItem.
+     * It can be a list of dash Components and/or DashboardItem.
      */
     children: PropTypes.oneOfType([
         PropTypes.arrayOf(PropTypes.node),
@@ -226,28 +233,50 @@ DraggableDashboard.propTypes = {
     ]),
 
     /**
-     * (bool) It specify if the layout should automatically be saved.
+     * (bool) If False, then the layout is not saved in the browser.
+     * Default value is True.
      */
-    saveToClient: PropTypes.bool,
+    save: PropTypes.bool,
     
     /**
      * (bool) If set to true, then the layout saved in the client browser
-     * will be cleared in the next page load.
+     * will be cleared on page load.
      */
-    clearLayoutOnClient: PropTypes.bool,
-
+    clearSavedLayout: PropTypes.bool,
 
     /**
-     * (number) the default number of columns for an item with no predefined size.
-     * The size of items can either be defined in the layout argument or in DashboardItem.
+     * (number) the default number of columns by item.
+     * Default value is 6.
      */
-    items_by_row: PropTypes.number,
+    ncols: PropTypes.number,
 
     /**
-     * (number) the default number of items by row.
-     * Default is 2.
+     * (number) the default number of row by item.
+     * Default value is 8.
      */
     nrows: PropTypes.number,
+    
+    /**
+     * (number) width (in px).
+     * Default value is 1200.
+     */
+    width: PropTypes.number,
+
+    /**
+     * (number) height of a row (in px).
+     * Default value is 30.
+     */
+    height: PropTypes.number,
+
+    /**
+     * (string) class passed to the react-grid-layout component 
+     */
+    className: PropTypes.string,
+
+    /**
+     * (dict) css style passed to the react-grid-layout component
+     */
+    style: PropTypes.object,
 
     /**
      * Dash-assigned callback that should be called to report property changes

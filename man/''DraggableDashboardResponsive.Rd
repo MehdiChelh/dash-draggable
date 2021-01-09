@@ -11,14 +11,14 @@ DraggableDashboard is a component for building dashboards with draggable and re
 
 \usage{
 ''DraggableDashboardResponsive(children=NULL, id=NULL, layouts=NULL, breakpoints=NULL,
-cols=NULL, margin=NULL, containerPadding=NULL,
-saveToClient=NULL, clearLayoutOnClient=NULL,
-items_by_row=NULL, nrows=NULL)
+gridCols=NULL, save=NULL, clearSavedLayout=NULL, ncols=NULL,
+nrows=NULL, height=NULL, className=NULL, style=NULL)
 }
 
 \arguments{
-\item{children}{List of a list of or a singular dash component, string or numbers | a list of or a singular dash component, string or number. Children is a list of the elements to drag and resize on the dashboard.
-It can be a list(Pytyhon)/vector(R) of dash Components and/or DashboardItem.}
+\item{children}{List of a list of or a singular dash component, string or numbers | a list of or a singular dash component, string or number. Children is a list of the items (dash Components and/or 
+DashboardItem) to diplay on the layout.
+By default all the items can be dragged and resized.}
 
 \item{id}{Character. (string) The ID used to identify this component in Dash callbacks.
 The id is also used to automatically save the layout on client side.}
@@ -32,24 +32,32 @@ array objects like so:
 The ID used to identify this component in Dash callbacks.
 The id is also used to automatically save the layout on client side.}
 
-\item{breakpoints}{Named list. }
+\item{breakpoints}{Named list. ({breakpoint: number}) The breakpoints for the responsive layout.
+For each screen size (breakpoint) we can define a different layout.
+(see also 'layouts' and 'gridCols' arguments)
+Default value is {lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0}}
 
-\item{cols}{Named list. }
+\item{gridCols}{Named list. ({breakpoint: number}) the number of columns in the grid layout.
+Default value is {lg: 12, md: 10, sm: 6, xs: 4, xxs: 2}.}
 
-\item{margin}{Named list | list of named lists. }
+\item{save}{Logical. (bool) If True, then the layout is automatically saved on client browser.
+Default value is True}
 
-\item{containerPadding}{Named list | list of named lists. }
-
-\item{saveToClient}{Logical. (bool) It specify if the layout should automatically be saved.}
-
-\item{clearLayoutOnClient}{Logical. (bool) If set to true, then the layout saved in the client browser
+\item{clearSavedLayout}{Logical. (bool) If set to true, then the layout saved in the client browser
 will be cleared in the next page load.}
 
-\item{items_by_row}{Named list. (number) the default number of item by row.
-Default is {lg: 2, md: 2, sm: 2, xs: 1, xxs: 1}}
+\item{ncols}{Numeric. ({breakpoint: number}) the default number of columns by item.
+Default value is {lg: 6, md: 5, sm: 3, xs: 4, xxs: 2}.}
 
-\item{nrows}{Numeric. (number) the default number of rows for an item with no predefined size.
-The size of items can either be defined in the layout argument or in DashboardItem.}
+\item{nrows}{Numeric. (number) the default number of row by item.
+Default value is 8.}
+
+\item{height}{Numeric. (number) height of a row (in px).
+Default value is 30.}
+
+\item{className}{Character. (string) class passed to the react-grid-layout component}
+
+\item{style}{Named list. (dict) css style passed to the react-grid-layout component}
 }
 
 \value{named list of JSON elements corresponding to React.js properties and their values}

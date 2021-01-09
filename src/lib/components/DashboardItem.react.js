@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import {
-    DEFAULT_HEIGHT,
-    DEFAULT_WIDTH,
+    NROWS,
+    NCOLS,
 } from "../constants"
 
 import "../../../node_modules/react-grid-layout/css/styles.css"
@@ -24,9 +24,8 @@ export default class DashboardItem extends React.Component {
 DashboardItem.defaultProps = {
     x: 0,
     y: 0,
-    w: DEFAULT_WIDTH,
-    h: DEFAULT_HEIGHT,
-    __isDashboardItem: true
+    w: NCOLS,
+    h: NROWS,
     // DashDraggeble_isDashboardItem: true
 };
 
@@ -86,12 +85,6 @@ DashboardItem.propTypes = {
     moved: PropTypes.bool,
     resizeHandles: PropTypes.string,
     
-    /**
-     * This is an internal prop used to identify the component, this property default value is True. 
-     * Setting this value to false is equivalent to not using the DashboardItem wrapper.
-     */
-    __isDashboardItem: PropTypes.bool,
-
     /**
      * Dash-assigned callback that should be called to report property changes
      * to Dash, to make them available for callbacks.

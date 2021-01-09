@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import {Responsive, WidthProvider as widthProvider} from 'react-grid-layout';
 
 import {
-    DEFAULT_HEIGHT,
-    DEFAULT_ROW_HEIGHT,
+    NROWS,
+    ROW_HEIGHT,
     BREAKPOINTS,
-    MAX_COLS_RESPONSIVE,
-    ITEMS_BY_ROW_RESPONSIVE,
+    GRID_COLS_RESPONSIVE,
+    NCOLS_RESPONSIVE,
 } from '../constants';
 
 import {saveToLs, getFromLs} from '../localStorage';
@@ -17,16 +17,16 @@ import './style.css';
 
 const ResponsiveReactGridLayout = widthProvider(Responsive);
 
-const defaultItemLayout = (item_layout, id, key, items_by_row, max_cols) => {
-    const col_width = Math.floor(max_cols / items_by_row);
-    const col = key % items_by_row;
-    const row = Math.floor(key / items_by_row);
+const defaultItemLayout = (item_layout, id, key, ncols, max_cols) => {
+    const nb_items_x = Math.floor(max_cols / ncols);
+    const col = key % nb_items_x;
+    const row = Math.floor(key / nb_items_x);
     const defaultChildLayout = {
         i: id || key.toString(),
-        x: col * col_width,
+        x: col * ncols,
         y: row,
-        w: col_width,
-        h: DEFAULT_HEIGHT,
+        w: ncols,
+        h: NROWS,
     };
     return {
         ...defaultChildLayout,
@@ -59,10 +59,10 @@ export default class DraggableDashboardResponsive extends Component {
         const {
             id,
             layouts: providedLayouts,
-            clearLayoutOnClient,
-            items_by_row = ITEMS_BY_ROW_RESPONSIVE,
+            clearSavedLayout,
+            ncols = NCOLS_RESPONSIVE,
             breakpoints = BREAKPOINTS,
-            cols = MAX_COLS_RESPONSIVE,
+            gridCols = GRID_COLS_RESPONSIVE,
         } = this.props;
         const layouts = {};
         let child_props, child_id, isDashboardItem;
@@ -73,7 +73,7 @@ export default class DraggableDashboardResponsive extends Component {
         //   Priority to client local store [except if specified]
         //   Then layout
         //   And then DashboardItem [except if sepcified])
-        if (clearLayoutOnClient) {
+        if (clearSavedLayout) {
             saveToLs(`${id}-layouts`, null);
         }
         const savedLayout = getFromLs(`${id}-layouts`);
@@ -131,8 +131,8 @@ export default class DraggableDashboardResponsive extends Component {
                         item_provided_layout,
                         child_id,
                         key,
-                        items_by_row[bkp],
-                        cols[bkp]
+                        ncols[bkp],
+                        gridCols[bkp]
                     );
                 }
                 if (!item_layout) {
@@ -140,8 +140,8 @@ export default class DraggableDashboardResponsive extends Component {
                         {},
                         child_id,
                         key,
-                        items_by_row[bkp],
-                        cols[bkp]
+                        ncols[bkp],
+                        gridCols[bkp]
                     );
                 }
 
@@ -155,26 +155,30 @@ export default class DraggableDashboardResponsive extends Component {
         let {children = []} = this.props;
         const {
             id,
-            saveToClient,
+            save,
             setProps,
             breakpoints = BREAKPOINTS,
-            cols = MAX_COLS_RESPONSIVE,
+            gridCols = GRID_COLS_RESPONSIVE,
+            height=ROW_HEIGHT,
+            className,
+            style,
         } = this.props;
 
         children = Array.isArray(children) ? children : [children];
 
         return (
             <ResponsiveReactGridLayout
-                className="layout"
+                className={className}
+                style={style}
                 layouts={this.layouts}
-                cols={cols}
+                cols={gridCols}
                 breakpoints={breakpoints}
-                rowHeight={DEFAULT_ROW_HEIGHT}
+                rowHeight={height}
                 onLayoutChange={(current_layout, all_layouts) => {
                     this.layouts = all_layouts;
 
                     setProps({current_layout, all_layout: all_layouts});
-                    if (saveToClient) {
+                    if (save) {
                         saveToLs(`${id}-layouts`, all_layouts);
                     }
                 }}
@@ -203,7 +207,12 @@ export default class DraggableDashboardResponsive extends Component {
                                     <span className="item-top-content">
                                         ...
                                     </span>
-                                    {/* <div className="item-top-right">...</div> */}
+                                    {/* 
+                                        <div className="item-top-right">...</div> 
+                                        Maybe we could add a menu to change the 
+                                        properties of the item.
+                                        (static, draggable, resizeable, ...)
+                                    */}
                                 </div>
                             }
                             <div
@@ -221,9 +230,11 @@ export default class DraggableDashboardResponsive extends Component {
 }
 
 DraggableDashboardResponsive.defaultProps = {
-    saveToClient: true,
-    clearLayoutOnClient: false,
+    save: true,
+    clearSavedLayout: false,
     children: [],
+    style: {},
+    className: "",
 };
 
 DraggableDashboardResponsive.propTypes = {
@@ -245,22 +256,33 @@ DraggableDashboardResponsive.propTypes = {
      */
     layouts: PropTypes.object,
 
+    /**
+     * ({breakpoint: number}) The breakpoints for the responsive layout.
+     * For each screen size (breakpoint) we can define a different layout.
+     * (see also 'layouts' and 'gridCols' arguments)
+     * Default value is {lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0}
+     */
     breakpoints: PropTypes.object,
 
-    cols: PropTypes.object,
+    /**
+     * ({breakpoint: number}) the number of columns in the grid layout.
+     * Default value is {lg: 12, md: 10, sm: 6, xs: 4, xxs: 2}.
+     */
+    gridCols: PropTypes.object,
 
-    margin: PropTypes.oneOfType([
-        PropTypes.object,
-        PropTypes.arrayOf(PropTypes.object),
-    ]),
-    containerPadding: PropTypes.oneOfType([
-        PropTypes.object,
-        PropTypes.arrayOf(PropTypes.object),
-    ]),
+    // margin: PropTypes.oneOfType([
+    //     PropTypes.object,
+    //     PropTypes.arrayOf(PropTypes.object),
+    // ]),
+    // containerPadding: PropTypes.oneOfType([
+    //     PropTypes.object,
+    //     PropTypes.arrayOf(PropTypes.object),
+    // ]),
 
     /**
-     * Children is a list of the elements to drag and resize on the dashboard.
-     * It can be a list(Pytyhon)/vector(R) of dash Components and/or DashboardItem.
+     * Children is a list of the items (dash Components and/or 
+     * DashboardItem) to diplay on the layout.
+     * By default all the items can be dragged and resized.
      */
     children: PropTypes.oneOfType([
         PropTypes.arrayOf(PropTypes.node),
@@ -268,27 +290,44 @@ DraggableDashboardResponsive.propTypes = {
     ]),
 
     /**
-     * (bool) It specify if the layout should automatically be saved.
+     * (bool) If True, then the layout is automatically saved on client browser.
+     * Default value is True
      */
-    saveToClient: PropTypes.bool,
+    save: PropTypes.bool,
 
     /**
      * (bool) If set to true, then the layout saved in the client browser
      * will be cleared in the next page load.
      */
-    clearLayoutOnClient: PropTypes.bool,
+    clearSavedLayout: PropTypes.bool,
 
     /**
-     * (number) the default number of item by row.
-     * Default is {lg: 2, md: 2, sm: 2, xs: 1, xxs: 1}
+     * ({breakpoint: number}) the default number of columns by item.
+     * Default value is {lg: 6, md: 5, sm: 3, xs: 4, xxs: 2}.
      */
-    items_by_row: PropTypes.object,
+    ncols: PropTypes.number,
 
     /**
-     * (number) the default number of rows for an item with no predefined size.
-     * The size of items can either be defined in the layout argument or in DashboardItem.
+     * (number) the default number of row by item.
+     * Default value is 8.
      */
     nrows: PropTypes.number,
+    
+    /**
+     * (number) height of a row (in px).
+     * Default value is 30.
+     */
+    height: PropTypes.number,
+
+    /**
+     * (string) class passed to the react-grid-layout component 
+     */
+    className: PropTypes.string,
+
+    /**
+     * (dict) css style passed to the react-grid-layout component
+     */
+    style: PropTypes.object,
 
     /**
      * Dash-assigned callback that should be called to report property changes

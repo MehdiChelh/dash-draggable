@@ -28,11 +28,9 @@ Keyword arguments:
 - `minW` (Real; optional)
 - `moved` (Bool; optional)
 - `resizeHandles` (String; optional)
-- `__isDashboardItem` (Bool; optional): This is an internal prop used to identify the component, this property default value is True. 
-Setting this value to false is equivalent to not using the DashboardItem wrapper.
 """
 function ''_dashboarditem(; kwargs...)
-        available_props = Symbol[:children, :i, :x, :y, :w, :h, :static, :isDraggable, :isResizable, :isBounded, :maxH, :maxW, :minH, :minW, :moved, :resizeHandles, :__isDashboardItem]
+        available_props = Symbol[:children, :i, :x, :y, :w, :h, :static, :isDraggable, :isResizable, :isBounded, :maxH, :maxW, :minH, :minW, :moved, :resizeHandles]
         wild_props = Symbol[]
         return Component("''_dashboarditem", "DashboardItem", "dash_draggable", available_props, wild_props; kwargs...)
 end
