@@ -4,6 +4,8 @@ import React, {Component} from 'react';
 import {
     DraggableDashboard,
     DraggableDashboardResponsive,
+    GridLayout,
+    ResponsiveGridLayout,
     DashboardItem,
     DashboardItemResponsive
 } from '../lib';
@@ -25,7 +27,7 @@ class App extends Component {
         return (
             <div>
                 <h1>Not Responsive</h1>
-                <DraggableDashboard
+                <GridLayout
                     id="test"
                     setProps={this.setProps}
                     clearSavedLayout={false}
@@ -65,7 +67,7 @@ class App extends Component {
                         occaecat aute Lorem quis laboris ullamco culpa ex quis
                         laboris ea dolore.
                     </div>
-                </DraggableDashboard>
+                </GridLayout>
 
                 <div
                     style={{
@@ -76,7 +78,7 @@ class App extends Component {
                 ></div>
 
                 <h1>Responsive</h1>
-                <DraggableDashboardResponsive
+                <ResponsiveGridLayout
                     setProps={this.setProps}
                     clearSavedLayout={false}
                     layouts={{
@@ -116,7 +118,7 @@ class App extends Component {
                         occaecat aute Lorem quis laboris ullamco culpa ex quis
                         laboris ea dolore.
                     </div>
-                </DraggableDashboardResponsive>
+                </ResponsiveGridLayout>
             </div>
         );
     }

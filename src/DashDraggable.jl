@@ -9,6 +9,8 @@ include("''_dashboarditem.jl")
 include("''_dashboarditemresponsive.jl")
 include("''_draggabledashboard.jl")
 include("''_draggabledashboardresponsive.jl")
+include("''_gridlayout.jl")
+include("''_responsivegridlayout.jl")
 
 function __init__()
     DashBase.register_package(
