@@ -5,17 +5,17 @@ from dash.development.base_component import Component, _explicitize_args
 
 class GridLayout(Component):
     """A GridLayout component.
-GridLayout is a component for building 
+GridLayout is a component for building
 dashboards with draggable and resizable items.
 It takes a list of children and display them in
 div elements that can be moved around the page.
-The initial size of each element can either be 
-defined with the layout argument or by wrapping 
+The initial size of each element can either be
+defined with the layout argument or by wrapping
 each element with the DashboardItem component.
-By default, GridLayout will saved the 
-position of the elements on client side, when 
-moved on the page. But you can also save it 
-on server side by defining a callback with : 
+By default, GridLayout will saved the
+position of the elements on client side, when
+moved on the page. But you can also save it
+on server side by defining a callback with :
 `Input("<my-id>", "layout")`.
 
 Keyword arguments:
@@ -41,17 +41,19 @@ Default value is 6.
 Default value is 8.
 - width (number; optional): (number) width (in px).
 Default value is 1200.
+- gridCols (number; optional): (number) number of columns in the grid layout.
+Default value is 12.
 - height (number; optional): (number) height of a row (in px).
 Default value is 30.
-- className (string; default ""): (string) class passed to the react-grid-layout component
+- className (string; default ''): (string) class passed to the react-grid-layout component
 - style (dict; optional): (dict) css style passed to the react-grid-layout component"""
     @_explicitize_args
-    def __init__(self, children=None, id=Component.UNDEFINED, layout=Component.UNDEFINED, save=Component.UNDEFINED, clearSavedLayout=Component.UNDEFINED, ncols=Component.UNDEFINED, nrows=Component.UNDEFINED, width=Component.UNDEFINED, height=Component.UNDEFINED, className=Component.UNDEFINED, style=Component.UNDEFINED, **kwargs):
-        self._prop_names = ['children', 'id', 'layout', 'save', 'clearSavedLayout', 'ncols', 'nrows', 'width', 'height', 'className', 'style']
+    def __init__(self, children=None, id=Component.UNDEFINED, layout=Component.UNDEFINED, save=Component.UNDEFINED, clearSavedLayout=Component.UNDEFINED, ncols=Component.UNDEFINED, nrows=Component.UNDEFINED, width=Component.UNDEFINED, gridCols=Component.UNDEFINED, height=Component.UNDEFINED, className=Component.UNDEFINED, style=Component.UNDEFINED, **kwargs):
+        self._prop_names = ['children', 'id', 'layout', 'save', 'clearSavedLayout', 'ncols', 'nrows', 'width', 'gridCols', 'height', 'className', 'style']
         self._type = 'GridLayout'
         self._namespace = 'dash_draggable'
         self._valid_wildcard_attributes =            []
-        self.available_properties = ['children', 'id', 'layout', 'save', 'clearSavedLayout', 'ncols', 'nrows', 'width', 'height', 'className', 'style']
+        self.available_properties = ['children', 'id', 'layout', 'save', 'clearSavedLayout', 'ncols', 'nrows', 'width', 'gridCols', 'height', 'className', 'style']
         self.available_wildcard_properties =            []
 
         _explicit_args = kwargs.pop('_explicit_args')

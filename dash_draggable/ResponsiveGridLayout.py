@@ -19,7 +19,7 @@ on server side by defining a callback with :
 `Input("<my-id>", "layout")`.
 
 Keyword arguments:
-- children (list of a list of or a singular dash component, string or numbers | a list of or a singular dash component, string or number; optional): Children is a list of the items (dash Components and/or 
+- children (list of a list of or a singular dash component, string or numbers | a list of or a singular dash component, string or number; optional): Children is a list of the items (dash Components and/or
 DashboardItem) to diplay on the layout.
 By default all the items can be dragged and resized.
 - id (string; optional): (string) The ID used to identify this component in Dash callbacks.
@@ -40,15 +40,15 @@ Default value is {lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0}
 Default value is {lg: 12, md: 10, sm: 6, xs: 4, xxs: 2}.
 - save (boolean; default True): (bool) If True, then the layout is automatically saved on client browser.
 Default value is True
-- clearSavedLayout (boolean; default False): (bool) If set to true, then the layout saved in the client browser
-will be cleared in the next page load.
+- clearSavedLayout (boolean; default False): (bool) If set to true, the position of elements saved on client side
+will be cleared on the next page load.
 - ncols (number; optional): ({breakpoint: number}) the default number of columns by item.
 Default value is {lg: 6, md: 5, sm: 3, xs: 4, xxs: 2}.
 - nrows (number; optional): (number) the default number of row by item.
 Default value is 8.
 - height (number; optional): (number) height of a row (in px).
 Default value is 30.
-- className (string; default ""): (string) class passed to the react-grid-layout component
+- className (string; default ''): (string) class passed to the react-grid-layout component
 - style (dict; optional): (dict) css style passed to the react-grid-layout component"""
     @_explicitize_args
     def __init__(self, children=None, id=Component.UNDEFINED, layouts=Component.UNDEFINED, breakpoints=Component.UNDEFINED, gridCols=Component.UNDEFINED, save=Component.UNDEFINED, clearSavedLayout=Component.UNDEFINED, ncols=Component.UNDEFINED, nrows=Component.UNDEFINED, height=Component.UNDEFINED, className=Component.UNDEFINED, style=Component.UNDEFINED, **kwargs):

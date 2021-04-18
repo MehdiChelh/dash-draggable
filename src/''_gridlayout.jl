@@ -9,17 +9,17 @@ export ''_gridlayout
 
 
 A GridLayout component.
-GridLayout is a component for building 
+GridLayout is a component for building
 dashboards with draggable and resizable items.
 It takes a list of children and display them in
 div elements that can be moved around the page.
-The initial size of each element can either be 
-defined with the layout argument or by wrapping 
+The initial size of each element can either be
+defined with the layout argument or by wrapping
 each element with the DashboardItem component.
-By default, GridLayout will saved the 
-position of the elements on client side, when 
-moved on the page. But you can also save it 
-on server side by defining a callback with : 
+By default, GridLayout will saved the
+position of the elements on client side, when
+moved on the page. But you can also save it
+on server side by defining a callback with :
 `Input("<my-id>", "layout")`.
 Keyword arguments:
 - `children` (Array of a list of or a singular dash component, string or numbers | a list of or a singular dash component, string or number; optional): Children is a list of the elements to drag and resize on the dashboard.
@@ -44,13 +44,15 @@ Default value is 6.
 Default value is 8.
 - `width` (Real; optional): (number) width (in px).
 Default value is 1200.
+- `gridCols` (Real; optional): (number) number of columns in the grid layout.
+Default value is 12.
 - `height` (Real; optional): (number) height of a row (in px).
 Default value is 30.
 - `className` (String; optional): (string) class passed to the react-grid-layout component
 - `style` (Dict; optional): (dict) css style passed to the react-grid-layout component
 """
 function ''_gridlayout(; kwargs...)
-        available_props = Symbol[:children, :id, :layout, :save, :clearSavedLayout, :ncols, :nrows, :width, :height, :className, :style]
+        available_props = Symbol[:children, :id, :layout, :save, :clearSavedLayout, :ncols, :nrows, :width, :gridCols, :height, :className, :style]
         wild_props = Symbol[]
         return Component("''_gridlayout", "GridLayout", "dash_draggable", available_props, wild_props; kwargs...)
 end

@@ -611,7 +611,7 @@
     }
   },
   "src/lib/components/GridLayout.react.js": {
-    "description": "GridLayout is a component for building \r\ndashboards with draggable and resizable items.\r\nIt takes a list of children and display them in\r\ndiv elements that can be moved around the page.\r\nThe initial size of each element can either be \r\ndefined with the layout argument or by wrapping \r\neach element with the DashboardItem component.\r\nBy default, GridLayout will saved the \r\nposition of the elements on client side, when \r\nmoved on the page. But you can also save it \r\non server side by defining a callback with : \r\n`Input(\"<my-id>\", \"layout\")`.",
+    "description": "GridLayout is a component for building\r\ndashboards with draggable and resizable items.\r\nIt takes a list of children and display them in\r\ndiv elements that can be moved around the page.\r\nThe initial size of each element can either be\r\ndefined with the layout argument or by wrapping\r\neach element with the DashboardItem component.\r\nBy default, GridLayout will saved the\r\nposition of the elements on client side, when\r\nmoved on the page. But you can also save it\r\non server side by defining a callback with :\r\n`Input(\"<my-id>\", \"layout\")`.",
     "displayName": "GridLayout",
     "methods": [],
     "props": {
@@ -697,6 +697,13 @@
         "required": false,
         "description": "(number) width (in px).\r\nDefault value is 1200."
       },
+      "gridCols": {
+        "type": {
+          "name": "number"
+        },
+        "required": false,
+        "description": "(number) number of columns in the grid layout.\r\nDefault value is 12."
+      },
       "height": {
         "type": {
           "name": "number"
@@ -711,7 +718,7 @@
         "required": false,
         "description": "(string) class passed to the react-grid-layout component",
         "defaultValue": {
-          "value": "\"\"",
+          "value": "''",
           "computed": false
         }
       },
@@ -784,7 +791,7 @@
           ]
         },
         "required": false,
-        "description": "Children is a list of the items (dash Components and/or \r\nDashboardItem) to diplay on the layout.\r\nBy default all the items can be dragged and resized.",
+        "description": "Children is a list of the items (dash Components and/or\r\nDashboardItem) to diplay on the layout.\r\nBy default all the items can be dragged and resized.",
         "defaultValue": {
           "value": "[]",
           "computed": false
@@ -806,7 +813,7 @@
           "name": "bool"
         },
         "required": false,
-        "description": "(bool) If set to true, then the layout saved in the client browser\r\nwill be cleared in the next page load.",
+        "description": "(bool) If set to true, the position of elements saved on client side\r\nwill be cleared on the next page load.",
         "defaultValue": {
           "value": "false",
           "computed": false
@@ -840,7 +847,7 @@
         "required": false,
         "description": "(string) class passed to the react-grid-layout component",
         "defaultValue": {
-          "value": "\"\"",
+          "value": "''",
           "computed": false
         }
       },

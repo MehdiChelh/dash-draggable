@@ -16,7 +16,7 @@ nrows=NULL, height=NULL, className=NULL, style=NULL)
 }
 
 \arguments{
-\item{children}{List of a list of or a singular dash component, string or numbers | a list of or a singular dash component, string or number. Children is a list of the items (dash Components and/or 
+\item{children}{List of a list of or a singular dash component, string or numbers | a list of or a singular dash component, string or number. Children is a list of the items (dash Components and/or
 DashboardItem) to diplay on the layout.
 By default all the items can be dragged and resized.}
 
@@ -43,8 +43,8 @@ Default value is {lg: 12, md: 10, sm: 6, xs: 4, xxs: 2}.}
 \item{save}{Logical. (bool) If True, then the layout is automatically saved on client browser.
 Default value is True}
 
-\item{clearSavedLayout}{Logical. (bool) If set to true, then the layout saved in the client browser
-will be cleared in the next page load.}
+\item{clearSavedLayout}{Logical. (bool) If set to true, the position of elements saved on client side
+will be cleared on the next page load.}
 
 \item{ncols}{Numeric. ({breakpoint: number}) the default number of columns by item.
 Default value is {lg: 6, md: 5, sm: 3, xs: 4, xxs: 2}.}

@@ -3,142 +3,149 @@ import PropTypes from 'prop-types';
 import GridLayout_ from 'react-grid-layout';
 
 import {
-    GRID_COLS,
+    GRID_COLS as gridCols,
     NCOLS,
     NROWS,
     ROW_HEIGHT,
     WIDTH,
-} from "../constants"
+} from '../constants';
 
-import {saveToLs, getFromLs} from "../localStorage";
-import "../../../node_modules/react-grid-layout/css/styles.css"
-import "../../../node_modules/react-resizable/css/styles.css"
-import "./style.css"
+import {saveToLs, getFromLs} from '../localStorage';
+import '../../../node_modules/react-grid-layout/css/styles.css';
+import '../../../node_modules/react-resizable/css/styles.css';
+import './style.css';
 
-const defaultItemLayout = (item_layout, id, key, ncols) => {
-    
-    const nb_child_x = Math.floor(GRID_COLS / ncols)
-    const col = (key % nb_child_x)
-    const row = Math.floor(key / nb_child_x)
+const defaultItemLayout = (item_layout, id, key, ncols, gridCols) => {
+    const nb_child_x = Math.floor(gridCols / ncols);
+    const col = key % nb_child_x;
+    const row = Math.floor(key / nb_child_x);
     const defaultChildLayout = {
         i: id || key.toString(),
         x: col * ncols,
         y: row,
         w: ncols,
-        h: NROWS
-    }
+        h: NROWS,
+    };
     return {
         ...defaultChildLayout,
         ...item_layout,
         i: id || key.toString(),
-        x: item_layout.x ? item_layout.x : defaultChildLayout.x,  // to refactor
+        x: item_layout.x ? item_layout.x : defaultChildLayout.x, // to refactor
         y: item_layout.y ? item_layout.y : defaultChildLayout.y,
         w: item_layout.w ? item_layout.w : defaultChildLayout.w,
         h: item_layout.h ? item_layout.h : defaultChildLayout.h,
-    }
-}
+    };
+};
 
 /**
- * GridLayout is a component for building 
+ * GridLayout is a component for building
  * dashboards with draggable and resizable items.
  * It takes a list of children and display them in
  * div elements that can be moved around the page.
- * The initial size of each element can either be 
- * defined with the layout argument or by wrapping 
+ * The initial size of each element can either be
+ * defined with the layout argument or by wrapping
  * each element with the DashboardItem component.
- * By default, GridLayout will saved the 
- * position of the elements on client side, when 
- * moved on the page. But you can also save it 
- * on server side by defining a callback with : 
+ * By default, GridLayout will saved the
+ * position of the elements on client side, when
+ * moved on the page. But you can also save it
+ * on server side by defining a callback with :
  * `Input("<my-id>", "layout")`.
  */
 export default class GridLayout extends Component {
     componentWillMount() {
-        let {children=[]} = this.props
+        let {children = []} = this.props;
         const {
             id,
             layout: providedLayout,
             clearSavedLayout,
             ncols = NCOLS,
+            gridCols = GRID_COLS,
         } = this.props;
         let child_props, child_id, isDashboardItem;
-        children = Array.isArray(children) ? children : [children]
+        children = Array.isArray(children) ? children : [children];
         // Build layout
         //   client local store [except if specified]
         //   > layout
         //   > element [except if sepcified])
         if (clearSavedLayout) {
-            saveToLs(`${id}-layout`, null)
+            saveToLs(`${id}-layout`, null);
         }
-        const savedLayout = getFromLs(`${id}-layout`)
-        
+        const savedLayout = getFromLs(`${id}-layout`);
+
         const layout = children.map((child, key) => {
             let item_layout;
-            
+
             if (typeof child === 'string') {
-                child_id = key.toString()
-                
+                child_id = key.toString();
             } else {
-                
                 child_props = child.props._dashprivate_layout
-                ? child.props._dashprivate_layout.props
-                : child.props;
+                    ? child.props._dashprivate_layout.props
+                    : child.props;
 
-                isDashboardItem = (child.props._dashprivate_layout
-                    ? child.props._dashprivate_layout.type
-                    : child.type.name) === 'DashboardItem';
+                isDashboardItem =
+                    (child.props._dashprivate_layout
+                        ? child.props._dashprivate_layout.type
+                        : child.type.name) === 'DashboardItem';
 
-                child_id =
-                    isDashboardItem
-                        ? child_props.i
-                        : child_props.id;
+                child_id = isDashboardItem ? child_props.i : child_props.id;
             }
-            
-            
+
             if (savedLayout) {
                 item_layout = savedLayout.find(
                     (el) => el.i === child_id || el.i === key.toString()
                 );
             }
-            if (!item_layout && providedLayout){
-                
-                item_layout = providedLayout.find(el => el.i === child_id)
+            if (!item_layout && providedLayout) {
+                item_layout = providedLayout.find((el) => el.i === child_id);
             }
-            if (!item_layout && isDashboardItem){
-                const {id, x, y, w, h} = child_props
-                item_layout = defaultItemLayout({i:id, x, y, w, h}, child_id, key, ncols)
+            if (!item_layout && isDashboardItem) {
+                const {id, x, y, w, h} = child_props;
+                item_layout = defaultItemLayout(
+                    {i: id, x, y, w, h},
+                    child_id,
+                    key,
+                    ncols,
+                    gridCols
+                );
             }
-            if (!item_layout){
-                item_layout = defaultItemLayout({}, child_id, key, ncols)
+            if (!item_layout) {
+                item_layout = defaultItemLayout(
+                    {},
+                    child_id,
+                    key,
+                    ncols,
+                    gridCols
+                );
             }
             // }
             // else {
             //     item_layout = defaultItemLayout({}, null, key, items_by_row)
             // }
-            return item_layout
-        })
-        
-        this.initialLayout = layout
+            return item_layout;
+        });
+
+        this.initialLayout = layout;
     }
     render() {
-        let {children=[]} = this.props
+        let {children = []} = this.props;
         const {
             id,
             save,
             setProps,
             width = WIDTH,
+            gridCols = GRID_COLS,
             height = ROW_HEIGHT,
             className,
             style,
         } = this.props;
 
         children = Array.isArray(children) ? children : [children];
-        
+
         return (
             <GridLayout_
                 className={className}
                 layout={this.initialLayout}
-                cols={GRID_COLS}
+                cols={gridCols}
                 rowHeight={height}
                 width={width}
                 style={style}
@@ -200,7 +207,7 @@ GridLayout.defaultProps = {
     save: true,
     clearSavedLayout: false,
     children: [],
-    className: "",
+    className: '',
     style: {},
 };
 
@@ -220,7 +227,7 @@ GridLayout.propTypes = {
      * {i: string, x: number, y: number, w: number, h: number}
      * The ID used to identify this component in Dash callbacks.
      * The id is also used to automatically save the layout on client side.
-     */    
+     */
     layout: PropTypes.arrayOf(PropTypes.object),
 
     /**
@@ -229,7 +236,7 @@ GridLayout.propTypes = {
      */
     children: PropTypes.oneOfType([
         PropTypes.arrayOf(PropTypes.node),
-        PropTypes.node
+        PropTypes.node,
     ]),
 
     /**
@@ -237,7 +244,7 @@ GridLayout.propTypes = {
      * Default value is True.
      */
     save: PropTypes.bool,
-    
+
     /**
      * (bool) If set to true, then the layout saved in the client browser
      * will be cleared on page load.
@@ -255,12 +262,18 @@ GridLayout.propTypes = {
      * Default value is 8.
      */
     nrows: PropTypes.number,
-    
+
     /**
      * (number) width (in px).
      * Default value is 1200.
      */
     width: PropTypes.number,
+
+    /**
+     * (number) number of columns in the grid layout.
+     * Default value is 12.
+     */
+    gridCols: PropTypes.number,
 
     /**
      * (number) height of a row (in px).
@@ -269,7 +282,7 @@ GridLayout.propTypes = {
     height: PropTypes.number,
 
     /**
-     * (string) class passed to the react-grid-layout component 
+     * (string) class passed to the react-grid-layout component
      */
     className: PropTypes.string,
 
@@ -282,5 +295,5 @@ GridLayout.propTypes = {
      * Dash-assigned callback that should be called to report property changes
      * to Dash, to make them available for callbacks.
      */
-    setProps: PropTypes.func
+    setProps: PropTypes.func,
 };

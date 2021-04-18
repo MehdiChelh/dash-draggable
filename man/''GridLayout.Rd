@@ -6,13 +6,13 @@
 \title{GridLayout component}
 
 \description{
-GridLayout is a component for building  dashboards with draggable and resizable items. It takes a list of children and display them in div elements that can be moved around the page. The initial size of each element can either be  defined with the layout argument or by wrapping  each element with the DashboardItem component. By default, GridLayout will saved the  position of the elements on client side, when  moved on the page. But you can also save it  on server side by defining a callback with :  `Input("<my-id>", "layout")`.
+GridLayout is a component for building dashboards with draggable and resizable items. It takes a list of children and display them in div elements that can be moved around the page. The initial size of each element can either be defined with the layout argument or by wrapping each element with the DashboardItem component. By default, GridLayout will saved the position of the elements on client side, when moved on the page. But you can also save it on server side by defining a callback with : `Input("<my-id>", "layout")`.
 }
 
 \usage{
 ''GridLayout(children=NULL, id=NULL, layout=NULL, save=NULL,
 clearSavedLayout=NULL, ncols=NULL, nrows=NULL, width=NULL,
-height=NULL, className=NULL, style=NULL)
+gridCols=NULL, height=NULL, className=NULL, style=NULL)
 }
 
 \arguments{
@@ -45,6 +45,9 @@ Default value is 8.}
 
 \item{width}{Numeric. (number) width (in px).
 Default value is 1200.}
+
+\item{gridCols}{Numeric. (number) number of columns in the grid layout.
+Default value is 12.}
 
 \item{height}{Numeric. (number) height of a row (in px).
 Default value is 30.}

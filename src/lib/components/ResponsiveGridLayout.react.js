@@ -159,7 +159,7 @@ export default class ResponsiveGridLayout extends Component {
             setProps,
             breakpoints = BREAKPOINTS,
             gridCols = GRID_COLS_RESPONSIVE,
-            height=ROW_HEIGHT,
+            height = ROW_HEIGHT,
             className,
             style,
         } = this.props;
@@ -177,7 +177,7 @@ export default class ResponsiveGridLayout extends Component {
                 onLayoutChange={(current_layout, all_layouts) => {
                     this.layouts = all_layouts;
 
-                    setProps({current_layout, all_layout: all_layouts});
+                    setProps({current_layout, layouts: all_layouts});
                     if (save) {
                         saveToLs(`${id}-layouts`, all_layouts);
                     }
@@ -234,7 +234,7 @@ ResponsiveGridLayout.defaultProps = {
     clearSavedLayout: false,
     children: [],
     style: {},
-    className: "",
+    className: '',
 };
 
 ResponsiveGridLayout.propTypes = {
@@ -280,7 +280,7 @@ ResponsiveGridLayout.propTypes = {
     // ]),
 
     /**
-     * Children is a list of the items (dash Components and/or 
+     * Children is a list of the items (dash Components and/or
      * DashboardItem) to diplay on the layout.
      * By default all the items can be dragged and resized.
      */
@@ -296,8 +296,8 @@ ResponsiveGridLayout.propTypes = {
     save: PropTypes.bool,
 
     /**
-     * (bool) If set to true, then the layout saved in the client browser
-     * will be cleared in the next page load.
+     * (bool) If set to true, the position of elements saved on client side
+     * will be cleared on the next page load.
      */
     clearSavedLayout: PropTypes.bool,
 
@@ -312,7 +312,7 @@ ResponsiveGridLayout.propTypes = {
      * Default value is 8.
      */
     nrows: PropTypes.number,
-    
+
     /**
      * (number) height of a row (in px).
      * Default value is 30.
@@ -320,7 +320,7 @@ ResponsiveGridLayout.propTypes = {
     height: PropTypes.number,
 
     /**
-     * (string) class passed to the react-grid-layout component 
+     * (string) class passed to the react-grid-layout component
      */
     className: PropTypes.string,
 

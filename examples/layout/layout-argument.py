@@ -23,11 +23,11 @@ app.layout = html.Div([
         layout=[
             {
                 "i": "graph-with-slider",
-                "x":0, "y":0, "w":8, "h":12, "static": True
+                "x":0, "w":8, "y":0, "h":12, "static": True
             },
             {
                 "i": "year-slider",
-                "x": 0, "y":9, "w":8, "h":2
+                "x": 0, "w":8, "y":13, "h":2
             },
         ],
         children=[
