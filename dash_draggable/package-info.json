@@ -1,6 +1,6 @@
 {
   "name": "dash_draggable",
-  "version": "0.0.1",
+  "version": "0.1.1a",
   "description": "A Dash component for building draggable and resizable grid layouts. Based on the wel known react-grid-layout.",
   "repository": {
     "type": "git",

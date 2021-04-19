@@ -2,7 +2,7 @@
 name = "DashDraggable"
 uuid = "1b08a953-4be3-4667-9a23-b388bd78db4c"
 authors = ["Mehdi Echchelh <mehdi.echel@gmail.com>"]
-version = "0.0.1"
+version = "0.1.1a"
 
 [deps]
 Dash = "1b08a953-4be3-4667-9a23-3db579824955"
