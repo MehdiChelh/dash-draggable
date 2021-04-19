@@ -17,7 +17,7 @@ df = pd.read_csv('https://raw.githubusercontent.com/plotly/datasets/master/gapmi
 
 app.layout = html.Div([
     html.H1("Dash Draggable"),
-    dash_draggable.DraggableDashboardResponsive(
+    dash_draggable.ResponsiveGridLayout(
         id='draggable',
         children=[
             html.Div(children=[

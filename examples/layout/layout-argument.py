@@ -22,7 +22,7 @@ app.layout = html.Div([
         html.Li("The chart is not draggable nor resizeable (with the value 'static' set to True in 'layout')."),
         html.Li("The slider is draggable and resizeable.")
     ]),
-    dash_draggable.DraggableDashboard(
+    dash_draggable.GridLayout(
         id='draggable',
         clearSavedLayout=True,
         layout=[
