@@ -17,6 +17,11 @@ df = pd.read_csv('https://raw.githubusercontent.com/plotly/datasets/master/gapmi
 
 app.layout = html.Div([
     html.H1("Dash Draggable"),
+    html.B("Description:"),
+    html.Ul([
+        html.Li("The chart is not draggable nor resizeable (with the value 'static' set to True in 'layout')."),
+        html.Li("The slider is draggable and resizeable.")
+    ]),
     dash_draggable.DraggableDashboardResponsive(
         id='draggable',
         clearSavedLayout=True,
@@ -27,7 +32,7 @@ app.layout = html.Div([
             },
             {
                 "i": "year-slider",
-                "x": 6, "y":0, "w":6, "h":2
+                "x": 0, "y":13, "w":6, "h":2
             }],
             "sm": [{
                 "i": "graph-with-slider",
@@ -35,7 +40,7 @@ app.layout = html.Div([
             },
             {
                 "i": "year-slider",
-                "x": 0, "y":9, "w":6, "h":2
+                "x": 0, "y":13, "w":6, "h":2
             },]
         },
         children=[
