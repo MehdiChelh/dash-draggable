@@ -46,14 +46,29 @@ Default value is 12.
 - height (number; optional): (number) height of a row (in px).
 Default value is 30.
 - className (string; default ''): (string) class passed to the react-grid-layout component
-- style (dict; optional): (dict) css style passed to the react-grid-layout component"""
+- style (dict; optional): (dict) css style passed to the react-grid-layout component
+- autoSize (boolean; default True)
+- draggableCancel (string; default '')
+- draggableHandle (string; default '')
+- verticalCompact (boolean; default True)
+- compactType (a value equal to: 'vertical', 'horizontal'; default 'vertical')
+- margin (list of numbers; default [10, 10])
+- containerPadding (list of numbers; default [10, 10])
+- isDraggable (boolean; default True)
+- isResizable (boolean; default True)
+- isBounded (boolean; default False)
+- useCSSTransforms (boolean; default True)
+- transformScale (number; default 1)
+- preventCollision (boolean; default False)
+- isDroppable (boolean; default False)
+- resizeHandles (list of a value equal to: 's', 'w', 'e', 'n', 'sw', 'nw', 'se', 'ne's; default ['se'])"""
     @_explicitize_args
-    def __init__(self, children=None, id=Component.UNDEFINED, layout=Component.UNDEFINED, save=Component.UNDEFINED, clearSavedLayout=Component.UNDEFINED, ncols=Component.UNDEFINED, nrows=Component.UNDEFINED, width=Component.UNDEFINED, gridCols=Component.UNDEFINED, height=Component.UNDEFINED, className=Component.UNDEFINED, style=Component.UNDEFINED, **kwargs):
-        self._prop_names = ['children', 'id', 'layout', 'save', 'clearSavedLayout', 'ncols', 'nrows', 'width', 'gridCols', 'height', 'className', 'style']
+    def __init__(self, children=None, id=Component.UNDEFINED, layout=Component.UNDEFINED, save=Component.UNDEFINED, clearSavedLayout=Component.UNDEFINED, ncols=Component.UNDEFINED, nrows=Component.UNDEFINED, width=Component.UNDEFINED, gridCols=Component.UNDEFINED, height=Component.UNDEFINED, className=Component.UNDEFINED, style=Component.UNDEFINED, autoSize=Component.UNDEFINED, draggableCancel=Component.UNDEFINED, draggableHandle=Component.UNDEFINED, verticalCompact=Component.UNDEFINED, compactType=Component.UNDEFINED, margin=Component.UNDEFINED, containerPadding=Component.UNDEFINED, isDraggable=Component.UNDEFINED, isResizable=Component.UNDEFINED, isBounded=Component.UNDEFINED, useCSSTransforms=Component.UNDEFINED, transformScale=Component.UNDEFINED, preventCollision=Component.UNDEFINED, isDroppable=Component.UNDEFINED, resizeHandles=Component.UNDEFINED, **kwargs):
+        self._prop_names = ['children', 'id', 'layout', 'save', 'clearSavedLayout', 'ncols', 'nrows', 'width', 'gridCols', 'height', 'className', 'style', 'autoSize', 'draggableCancel', 'draggableHandle', 'verticalCompact', 'compactType', 'margin', 'containerPadding', 'isDraggable', 'isResizable', 'isBounded', 'useCSSTransforms', 'transformScale', 'preventCollision', 'isDroppable', 'resizeHandles']
         self._type = 'GridLayout'
         self._namespace = 'dash_draggable'
         self._valid_wildcard_attributes =            []
-        self.available_properties = ['children', 'id', 'layout', 'save', 'clearSavedLayout', 'ncols', 'nrows', 'width', 'gridCols', 'height', 'className', 'style']
+        self.available_properties = ['children', 'id', 'layout', 'save', 'clearSavedLayout', 'ncols', 'nrows', 'width', 'gridCols', 'height', 'className', 'style', 'autoSize', 'draggableCancel', 'draggableHandle', 'verticalCompact', 'compactType', 'margin', 'containerPadding', 'isDraggable', 'isResizable', 'isBounded', 'useCSSTransforms', 'transformScale', 'preventCollision', 'isDroppable', 'resizeHandles']
         self.available_wildcard_properties =            []
 
         _explicit_args = kwargs.pop('_explicit_args')

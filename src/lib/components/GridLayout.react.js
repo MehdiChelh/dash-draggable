@@ -2,13 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import GridLayout_ from 'react-grid-layout';
 
-import {
-    GRID_COLS as gridCols,
-    NCOLS,
-    NROWS,
-    ROW_HEIGHT,
-    WIDTH,
-} from '../constants';
+import {GRID_COLS, NCOLS, NROWS, ROW_HEIGHT, WIDTH} from '../constants';
 
 import {saveToLs, getFromLs} from '../localStorage';
 import '../../../node_modules/react-grid-layout/css/styles.css';
@@ -155,6 +149,7 @@ export default class GridLayout extends Component {
                         saveToLs(`${id}-layout`, layout);
                     }
                 }}
+                {...this.props}
             >
                 {children.map((child, key) => {
                     // Get the id / key of each child
@@ -209,6 +204,30 @@ GridLayout.defaultProps = {
     children: [],
     className: '',
     style: {},
+
+    // Other props defined by react-grid-layout
+    autoSize: true,
+    // A CSS selector for tags that will not be draggable.
+    draggableCancel: '',
+    // A CSS selector for tags that will act as the draggable handle.
+    draggableHandle: '',
+    // If true, the layout will compact vertically
+    verticalCompact: true,
+    // Compaction type.
+    compactType: 'vertical',
+    // Margin between items [x, y] in px.
+    margin: [10, 10],
+    // Padding inside the container [x, y] in px
+    containerPadding: [10, 10],
+    // Flags
+    isDraggable: true,
+    isResizable: true,
+    isBounded: false,
+    useCSSTransforms: true,
+    transformScale: 1,
+    preventCollision: false,
+    isDroppable: false,
+    resizeHandles: ['se'],
 };
 
 GridLayout.propTypes = {
@@ -290,6 +309,74 @@ GridLayout.propTypes = {
      * (dict) css style passed to the react-grid-layout component
      */
     style: PropTypes.object,
+
+    // Other props defined by react-grid-layout
+    // If true, the container height swells and contracts to fit contents
+    autoSize: PropTypes.bool,
+
+    // A CSS selector for tags that will not be draggable.
+    // For example: draggableCancel:'.MyNonDraggableAreaClassName'
+    // If you forget the leading . it will not work.
+    draggableCancel: PropTypes.string,
+
+    // A CSS selector for tags that will act as the draggable handle.
+    // For example: draggableHandle:'.MyDragHandleClassName'
+    // If you forget the leading . it will not work.
+    draggableHandle: PropTypes.string,
+
+    // If true, the layout will compact vertically
+    verticalCompact: PropTypes.bool,
+
+    // Compaction type.
+    compactType: PropTypes.oneOf(['vertical', 'horizontal']),
+
+    // Margin between items [x, y] in px.
+    margin: PropTypes.arrayOf(PropTypes.number),
+
+    // Padding inside the container [x, y] in px
+    containerPadding: PropTypes.arrayOf(PropTypes.number),
+
+    //
+    // Flags
+    //
+    isDraggable: PropTypes.bool,
+    isResizable: PropTypes.bool,
+    isBounded: PropTypes.bool,
+    // Uses CSS3 translate() instead of position top/left.
+    // This makes about 6x faster paint performance
+    useCSSTransforms: PropTypes.bool,
+    // If parent DOM node of ResponsiveReactGridLayout or ReactGridLayout has "transform: scale(n)" css property,
+    // we should set scale coefficient to avoid render artefacts while dragging.
+    transformScale: PropTypes.number,
+
+    // If true, grid items won't change position when being
+    // dragged over.
+    preventCollision: PropTypes.bool,
+
+    // If true, droppable elements (with `draggable={true}` attribute)
+    // can be dropped on the grid. It triggers "onDrop" callback
+    // with position and event object as parameters.
+    // It can be useful for dropping an element in a specific position
+    //
+    // NOTE: In case of using Firefox you should add
+    // `onDragStart={e => e.dataTransfer.setData('text/plain', '')}` attribute
+    // along with `draggable={true}` otherwise this feature will work incorrect.
+    // onDragStart attribute is required for Firefox for a dragging initialization
+    // @see https://bugzilla.mozilla.org/show_bug.cgi?id=568313
+    isDroppable: PropTypes.bool,
+    // Defines which resize handles should be rendered
+    // Allows for any combination of:
+    // 's' - South handle (bottom-center)
+    // 'w' - West handle (left-center)
+    // 'e' - East handle (right-center)
+    // 'n' - North handle (top-center)
+    // 'sw' - Southwest handle (bottom-left)
+    // 'nw' - Northwest handle (top-left)
+    // 'se' - Southeast handle (bottom-right)
+    // 'ne' - Northeast handle (top-right)
+    resizeHandles: PropTypes.arrayOf(
+        PropTypes.oneOf(['s', 'w', 'e', 'n', 'sw', 'nw', 'se', 'ne'])
+    ),
 
     /**
      * Dash-assigned callback that should be called to report property changes

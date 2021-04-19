@@ -50,9 +50,24 @@ Default value is 12.
 Default value is 30.
 - `className` (String; optional): (string) class passed to the react-grid-layout component
 - `style` (Dict; optional): (dict) css style passed to the react-grid-layout component
+- `autoSize` (Bool; optional)
+- `draggableCancel` (String; optional)
+- `draggableHandle` (String; optional)
+- `verticalCompact` (Bool; optional)
+- `compactType` (a value equal to: 'vertical', 'horizontal'; optional)
+- `margin` (Array of Reals; optional)
+- `containerPadding` (Array of Reals; optional)
+- `isDraggable` (Bool; optional)
+- `isResizable` (Bool; optional)
+- `isBounded` (Bool; optional)
+- `useCSSTransforms` (Bool; optional)
+- `transformScale` (Real; optional)
+- `preventCollision` (Bool; optional)
+- `isDroppable` (Bool; optional)
+- `resizeHandles` (Array of a value equal to: 's', 'w', 'e', 'n', 'sw', 'nw', 'se', 'ne's; optional)
 """
 function ''_gridlayout(; kwargs...)
-        available_props = Symbol[:children, :id, :layout, :save, :clearSavedLayout, :ncols, :nrows, :width, :gridCols, :height, :className, :style]
+        available_props = Symbol[:children, :id, :layout, :save, :clearSavedLayout, :ncols, :nrows, :width, :gridCols, :height, :className, :style, :autoSize, :draggableCancel, :draggableHandle, :verticalCompact, :compactType, :margin, :containerPadding, :isDraggable, :isResizable, :isBounded, :useCSSTransforms, :transformScale, :preventCollision, :isDroppable, :resizeHandles]
         wild_props = Symbol[]
         return Component("''_gridlayout", "GridLayout", "dash_draggable", available_props, wild_props; kwargs...)
 end

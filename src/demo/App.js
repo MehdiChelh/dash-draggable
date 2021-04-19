@@ -7,7 +7,7 @@ import {
     GridLayout,
     ResponsiveGridLayout,
     DashboardItem,
-    DashboardItemResponsive
+    DashboardItemResponsive,
 } from '../lib';
 
 class App extends Component {
@@ -27,7 +27,7 @@ class App extends Component {
         return (
             <div>
                 <h1>Not Responsive</h1>
-                <GridLayout
+                {/* <GridLayout
                     id="test"
                     setProps={this.setProps}
                     clearSavedLayout={false}
@@ -67,7 +67,7 @@ class App extends Component {
                         occaecat aute Lorem quis laboris ullamco culpa ex quis
                         laboris ea dolore.
                     </div>
-                </GridLayout>
+                </GridLayout> */}
 
                 <div
                     style={{

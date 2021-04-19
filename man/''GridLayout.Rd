@@ -12,7 +12,12 @@ GridLayout is a component for building dashboards with draggable and resizable 
 \usage{
 ''GridLayout(children=NULL, id=NULL, layout=NULL, save=NULL,
 clearSavedLayout=NULL, ncols=NULL, nrows=NULL, width=NULL,
-gridCols=NULL, height=NULL, className=NULL, style=NULL)
+gridCols=NULL, height=NULL, className=NULL, style=NULL,
+autoSize=NULL, draggableCancel=NULL, draggableHandle=NULL,
+verticalCompact=NULL, compactType=NULL, margin=NULL,
+containerPadding=NULL, isDraggable=NULL, isResizable=NULL,
+isBounded=NULL, useCSSTransforms=NULL, transformScale=NULL,
+preventCollision=NULL, isDroppable=NULL, resizeHandles=NULL)
 }
 
 \arguments{
@@ -55,6 +60,36 @@ Default value is 30.}
 \item{className}{Character. (string) class passed to the react-grid-layout component}
 
 \item{style}{Named list. (dict) css style passed to the react-grid-layout component}
+
+\item{autoSize}{Logical. }
+
+\item{draggableCancel}{Character. }
+
+\item{draggableHandle}{Character. }
+
+\item{verticalCompact}{Logical. }
+
+\item{compactType}{A value equal to: 'vertical', 'horizontal'. }
+
+\item{margin}{List of numerics. }
+
+\item{containerPadding}{List of numerics. }
+
+\item{isDraggable}{Logical. }
+
+\item{isResizable}{Logical. }
+
+\item{isBounded}{Logical. }
+
+\item{useCSSTransforms}{Logical. }
+
+\item{transformScale}{Numeric. }
+
+\item{preventCollision}{Logical. }
+
+\item{isDroppable}{Logical. }
+
+\item{resizeHandles}{List of a value equal to: 's', 'w', 'e', 'n', 'sw', 'nw', 'se', 'ne's. }
 }
 
 \value{named list of JSON elements corresponding to React.js properties and their values}
