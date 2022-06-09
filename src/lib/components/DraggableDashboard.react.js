@@ -15,7 +15,7 @@ import "../../../node_modules/react-grid-layout/css/styles.css"
 import "../../../node_modules/react-resizable/css/styles.css"
 import "./style.css"
 
-const defaultItemLayout = (item_layout, id, key, ncols) => {
+const defaultItemLayout = (item_layout, id, key, ncols, nrows) => {
     
     const nb_child_x = Math.floor(GRID_COLS / ncols)
     const col = (key % nb_child_x)
@@ -25,7 +25,7 @@ const defaultItemLayout = (item_layout, id, key, ncols) => {
         x: col * ncols,
         y: row,
         w: ncols,
-        h: NROWS
+        h: nrows
     }
     return {
         ...defaultChildLayout,
@@ -60,6 +60,7 @@ export default class DraggableDashboard extends Component {
             layout: providedLayout,
             clearSavedLayout,
             ncols = NCOLS,
+            nrows = NROWS
         } = this.props;
         let child_props, child_id, isDashboardItem;
         children = Array.isArray(children) ? children : [children]
@@ -106,10 +107,10 @@ export default class DraggableDashboard extends Component {
             }
             if (!item_layout && isDashboardItem){
                 const {id, x, y, w, h} = child_props
-                item_layout = defaultItemLayout({i:id, x, y, w, h}, child_id, key, ncols)
+                item_layout = defaultItemLayout({i:id, x, y, w, h}, child_id, key, ncols, nrows)
             }
             if (!item_layout){
-                item_layout = defaultItemLayout({}, child_id, key, ncols)
+                item_layout = defaultItemLayout({}, child_id, key, ncols, nrows)
             }
             // }
             // else {
