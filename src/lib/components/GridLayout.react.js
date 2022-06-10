@@ -9,7 +9,7 @@ import '../../../node_modules/react-grid-layout/css/styles.css';
 import '../../../node_modules/react-resizable/css/styles.css';
 import './style.css';
 
-const defaultItemLayout = (item_layout, id, key, ncols, gridCols) => {
+const defaultItemLayout = (item_layout, id, key, ncols, nrows, gridCols) => {
     const nb_child_x = Math.floor(gridCols / ncols);
     const col = key % nb_child_x;
     const row = Math.floor(key / nb_child_x);
@@ -18,7 +18,7 @@ const defaultItemLayout = (item_layout, id, key, ncols, gridCols) => {
         x: col * ncols,
         y: row,
         w: ncols,
-        h: NROWS,
+        h: nrows,
     };
     return {
         ...defaultChildLayout,
@@ -53,6 +53,7 @@ export default class GridLayout extends Component {
             layout: providedLayout,
             clearSavedLayout,
             ncols = NCOLS,
+            nrows = NROWS,
             gridCols = GRID_COLS,
         } = this.props;
         let child_props, child_id, isDashboardItem;
@@ -99,6 +100,7 @@ export default class GridLayout extends Component {
                     child_id,
                     key,
                     ncols,
+                    nrows,
                     gridCols
                 );
             }
@@ -108,6 +110,7 @@ export default class GridLayout extends Component {
                     child_id,
                     key,
                     ncols,
+                    nrows,
                     gridCols
                 );
             }
